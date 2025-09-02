@@ -14,13 +14,11 @@ export default $config({
     const web = new sst.aws.Nextjs("MyWeb", {
       environment: {
         NODE_ENV: "production"
-      },
-      // domain: "endurancelabs.co" // Commented out until DNS is configured
+      }
     });
 
     return {
-      url: web.url,
-      customUrl: web.domain
+      url: web.url
     };
   },
 });

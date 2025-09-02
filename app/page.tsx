@@ -25,13 +25,15 @@ const projects = [
     title: "DocSwap",
     description: "Secure electronic health record exchange platform seamlessly connecting medical providers.",
     color: "bg-orange-500",
-    logo: "/images/docswap-logo.png"
+    logo: "/images/docswap-logo.png",
+    url: "https://d3vkwzhddaas09.cloudfront.net"
   },
   {
     id: 4,
     title: "Through the Grapevine",
     description: "A storytelling platform enabling winemakers to share their brand narratives directly with consumers.",
-    color: "bg-red-800"
+    color: "bg-red-800",
+    url: "https://d2spxgl8n3wc07.cloudfront.net"
   },
   {
     id: 5,
@@ -211,8 +213,8 @@ export default function Home() {
                       <Image
                         src={project.logo}
                         alt={`${project.title} logo`}
-                        width={project.title === 'Candidaid' ? 239 : project.title === 'Hobbipedia' ? 480 : project.title === 'DocSwap' ? 198 : 120}
-                        height={project.title === 'Candidaid' ? 159 : project.title === 'Hobbipedia' ? 320 : project.title === 'DocSwap' ? 132 : 80}
+                        width={project.title === 'Candidaid' ? 239 : project.title === 'Hobbipedia' ? 367 : project.title === 'DocSwap' ? 198 : 120}
+                        height={project.title === 'Candidaid' ? 159 : project.title === 'Hobbipedia' ? 245 : project.title === 'DocSwap' ? 132 : 80}
                         className={`max-w-full max-h-full object-contain ${project.title === 'Hobbipedia' ? 'self-center mt-3' : ''}`}
                       />
                     </div>
