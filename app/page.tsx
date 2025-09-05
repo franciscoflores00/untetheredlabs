@@ -33,19 +33,22 @@ const projects = [
     title: "Through the Grapevine",
     description: "A storytelling platform enabling winemakers to share their brand narratives directly with consumers.",
     color: "bg-red-800",
+    logo: "/images/grapevine.jpg",
     url: "https://d2spxgl8n3wc07.cloudfront.net"
   },
   {
     id: 5,
-    title: "IB: Street Smarts",
+    title: "IB: Mixtape",
     description: "Master investment banking interviews with technical and behavioral questions.",
-    color: "bg-green-800"
+    color: "bg-green-800",
+    logo: "/images/street-smarts.jpg"
   },
   {
     id: 6,
     title: "Prescription Pill Bottle",
     description: "Proposing California legislation to eliminate non-recyclable plastic prescription pill bottles.",
-    color: "bg-amber-500"
+    color: "bg-amber-500",
+    logo: "/images/prescription-pill-bottles.png"
   }
 ];
 
@@ -54,12 +57,30 @@ export default function Home() {
   const [isSubmitted, setIsSubmitted] = useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
-  const handleNewsletterSubmit = (e: React.FormEvent) => {
+  const handleNewsletterSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     if (email) {
-      setIsSubmitted(true);
-      setEmail('');
-      setTimeout(() => setIsSubmitted(false), 3000);
+      try {
+        const response = await fetch('/api/newsletter', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({ email }),
+        });
+
+        const data = await response.json();
+        
+        if (response.ok) {
+          setIsSubmitted(true);
+          setEmail('');
+          setTimeout(() => setIsSubmitted(false), 3000);
+        } else {
+          alert(data.error || 'Something went wrong');
+        }
+      } catch (error) {
+        alert('Failed to subscribe. Please try again.');
+      }
     }
   };
 
@@ -169,21 +190,18 @@ export default function Home() {
           </h2>
           <div className="grid md:grid-cols-3 gap-8 max-w-5xl mx-auto">
             <div className="bg-white p-8 rounded-xl shadow-sm hover:shadow-lg transition-shadow text-center">
-              <div className="text-3xl mb-4">🚀</div>
               <h3 className="text-xl font-semibold mb-3">Innovation First</h3>
               <p className="text-gray-600">
                 We don&apos;t just follow trends – we create them. Every project pushes the boundaries of what&apos;s possible.
               </p>
             </div>
             <div className="bg-white p-8 rounded-xl shadow-sm hover:shadow-lg transition-shadow text-center">
-              <div className="text-3xl mb-4">⚡</div>
               <h3 className="text-xl font-semibold mb-3">Rapid Iteration</h3>
               <p className="text-gray-600">
                 Speed meets quality. We move fast, learn faster, and deliver exceptional products without compromise.
               </p>
             </div>
             <div className="bg-white p-8 rounded-xl shadow-sm hover:shadow-lg transition-shadow text-center">
-              <div className="text-3xl mb-4">🎯</div>
               <h3 className="text-xl font-semibold mb-3">Impact Focused</h3>
               <p className="text-gray-600">
                 Every line of code, every design decision is made with one goal: creating meaningful impact for users.
@@ -213,9 +231,10 @@ export default function Home() {
                       <Image
                         src={project.logo}
                         alt={`${project.title} logo`}
-                        width={project.title === 'Candidaid' ? 239 : project.title === 'Hobbipedia' ? 367 : project.title === 'DocSwap' ? 198 : 120}
-                        height={project.title === 'Candidaid' ? 159 : project.title === 'Hobbipedia' ? 245 : project.title === 'DocSwap' ? 132 : 80}
-                        className={`max-w-full max-h-full object-contain ${project.title === 'Hobbipedia' ? 'self-center mt-3' : ''}`}
+                        width={project.title === 'Candidaid' ? 239 : project.title === 'Hobbipedia' ? 367 : project.title === 'DocSwap' ? 198 : project.title === 'Prescription Pill Bottle' ? 280 : project.title === 'IB: Mixtape' ? 280 : project.title === 'Through the Grapevine' ? 280 : 120}
+                        height={project.title === 'Candidaid' ? 159 : project.title === 'Hobbipedia' ? 245 : project.title === 'DocSwap' ? 132 : project.title === 'Prescription Pill Bottle' ? 112 : project.title === 'IB: Mixtape' ? 112 : project.title === 'Through the Grapevine' ? 112 : 80}
+                        className={`${project.title === 'Prescription Pill Bottle' || project.title === 'IB: Mixtape' || project.title === 'Through the Grapevine' ? 'w-full h-full object-cover' : 'max-w-full max-h-full object-contain'} ${project.title === 'Hobbipedia' ? 'self-center mt-3' : ''}`}
+                        style={project.title === 'IB: Mixtape' ? { objectPosition: 'center 65%' } : undefined}
                       />
                     </div>
                   ) : (
