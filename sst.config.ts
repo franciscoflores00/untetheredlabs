@@ -13,7 +13,9 @@ export default $config({
   async run() {
     const web = new sst.aws.Nextjs("MyWeb", {
       environment: {
-        NODE_ENV: "production"
+        NODE_ENV: "production",
+        MAILCHIMP_API_KEY: process.env.MAILCHIMP_API_KEY!,
+        MAILCHIMP_AUDIENCE_ID: process.env.MAILCHIMP_AUDIENCE_ID!
       }
     });
 
