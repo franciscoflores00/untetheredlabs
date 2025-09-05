@@ -11,8 +11,8 @@ export async function POST(request: Request) {
   }
 
   try {
-    const AUDIENCE_ID = process.env.MAILCHIMP_AUDIENCE_ID;
-    const API_KEY = process.env.MAILCHIMP_API_KEY;
+    const AUDIENCE_ID = process.env.MAILCHIMP_AUDIENCE_ID || "53670cf6f7";
+    const API_KEY = process.env.MAILCHIMP_API_KEY || "330b66f7c02436efa8c1d3e32a8ba626-us6";
     const DATACENTER = API_KEY?.split('-')[1];
 
     const response = await fetch(
