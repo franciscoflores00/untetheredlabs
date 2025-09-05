@@ -78,7 +78,7 @@ export default function Home() {
         } else {
           alert(data.error || 'Something went wrong');
         }
-      } catch (error) {
+      } catch {
         alert('Failed to subscribe. Please try again.');
       }
     }

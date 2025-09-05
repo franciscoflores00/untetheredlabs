@@ -50,7 +50,7 @@ export async function POST(request: Request) {
       { message: 'Success! You have been subscribed.' },
       { status: 200 }
     );
-  } catch (error) {
+  } catch {
     return NextResponse.json(
       { error: 'There was an error subscribing to the newsletter.' },
       { status: 500 }
