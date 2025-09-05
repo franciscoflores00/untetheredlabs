@@ -1,4 +1,5 @@
 import { NextResponse } from 'next/server';
+import { Resource } from 'sst';
 
 export async function POST(request: Request) {
   const { email } = await request.json();
@@ -11,8 +12,8 @@ export async function POST(request: Request) {
   }
 
   try {
-    const AUDIENCE_ID = process.env.MAILCHIMP_AUDIENCE_ID;
-    const API_KEY = process.env.MAILCHIMP_API_KEY;
+    const AUDIENCE_ID = Resource.MAILCHIMP_AUDIENCE_ID.value;
+    const API_KEY = Resource.MAILCHIMP_API_KEY.value;
     const DATACENTER = API_KEY?.split('-')[1];
     
     console.log('Using API_KEY:', API_KEY?.substring(0, 10) + '...');

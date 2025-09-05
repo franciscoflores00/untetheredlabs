@@ -11,12 +11,15 @@ export default $config({
     };
   },
   async run() {
+    // Define secrets
+    const MAILCHIMP_API_KEY = new sst.Secret("MAILCHIMP_API_KEY");
+    const MAILCHIMP_AUDIENCE_ID = new sst.Secret("MAILCHIMP_AUDIENCE_ID");
+
     const web = new sst.aws.Nextjs("MyWeb", {
       environment: {
-        NODE_ENV: "production",
-        MAILCHIMP_API_KEY: process.env.MAILCHIMP_API_KEY || "330b66f7c02436efa8c1d3e32a8ba626-us6",
-        MAILCHIMP_AUDIENCE_ID: process.env.MAILCHIMP_AUDIENCE_ID || "53670cf6f7"
-      }
+        NODE_ENV: "production"
+      },
+      link: [MAILCHIMP_API_KEY, MAILCHIMP_AUDIENCE_ID]
     });
 
     return {
