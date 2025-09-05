@@ -14,10 +14,6 @@ export async function POST(request: Request) {
     const AUDIENCE_ID = process.env.MAILCHIMP_AUDIENCE_ID;
     const API_KEY = process.env.MAILCHIMP_API_KEY;
     const DATACENTER = API_KEY?.split('-')[1];
-    
-    console.log('Using API_KEY:', API_KEY?.substring(0, 10) + '...');
-    console.log('Using AUDIENCE_ID:', AUDIENCE_ID);
-    console.log('Using DATACENTER:', DATACENTER);
 
     const response = await fetch(
       `https://${DATACENTER}.api.mailchimp.com/3.0/lists/${AUDIENCE_ID}/members`,
@@ -36,7 +32,6 @@ export async function POST(request: Request) {
 
     if (response.status >= 400) {
       const text = await response.text();
-      console.log('Mailchimp error:', text);
       
       if (text.includes('already a list member')) {
         return NextResponse.json(
@@ -46,7 +41,7 @@ export async function POST(request: Request) {
       }
 
       return NextResponse.json(
-        { error: 'There was an error subscribing to the newsletter.', debug: text },
+        { error: 'There was an error subscribing to the newsletter.' },
         { status: 400 }
       );
     }
