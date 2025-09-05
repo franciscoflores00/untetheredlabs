@@ -8,7 +8,10 @@ export const metadata: Metadata = {
   title: 'Endurance Labs',
   description: 'Building the future of decentralized applications',
   icons: {
-    icon: '/favicon.ico',
+    icon: [
+      { url: '/favicon.svg', type: 'image/svg+xml' },
+      { url: '/favicon.ico', type: 'image/x-icon' }
+    ],
   },
 }
 
