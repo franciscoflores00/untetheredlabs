@@ -13,8 +13,8 @@ export default $config({
     const web = new sst.aws.Nextjs("MyWeb", {
       environment: {
         NODE_ENV: "production",
-        MAILCHIMP_API_KEY: "330b66f7c02436efa8c1d3e32a8ba626-us6",
-        MAILCHIMP_AUDIENCE_ID: "53670cf6f7"
+        MAILCHIMP_API_KEY: process.env.MAILCHIMP_API_KEY || "",
+        MAILCHIMP_AUDIENCE_ID: process.env.MAILCHIMP_AUDIENCE_ID || ""
       }
     });
 
